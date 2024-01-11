@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
 
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
 
   output: {
     path: path.join(__dirname, "/dist"),
@@ -15,7 +15,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: "babel-loader",
       },
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
   },
 
   // defines where html file where bundle js files will be injected
