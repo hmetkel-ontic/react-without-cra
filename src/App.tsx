@@ -1,11 +1,14 @@
 import React from "react";
+import CssBaseline from '@mui/material/CssBaseline';
+
+import AudioPlayer from './Components/AudioPlayer'
 
 const App = () => {
   return (
-    <>
-      <h1>Hello this is</h1>
-      <h2>React w/o CRA</h2>
-    </>
+   <>
+   <CssBaseline enableColorScheme />
+   <AudioPlayer />
+   </>
   );
 };
 
