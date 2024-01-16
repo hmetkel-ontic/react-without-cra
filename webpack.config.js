@@ -1,39 +1,58 @@
 const path = require("path");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-
   entry: "./src/index.tsx",
 
   output: {
-    path: path.join(__dirname, "/dist"),
     filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
-
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        resolve: {
+          extensions: [".ts", ".tsx", ".js", ".json"],
+        },
+        use: "ts-loader",
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCSSExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|gif|mp3)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "./assets/audio/[name].[ext]",
+            },
+          },
+        ],
       },
     ],
   },
 
-  resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
-  },
+  // devtool: prod ? undefined : "source-map",
 
   // defines where html file where bundle js files will be injected
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "public", "assets"),
+          to: path.resolve(__dirname, "dist", "assets"),
+        },
+      ],
     }),
   ],
 

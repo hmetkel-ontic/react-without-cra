@@ -1,16 +1,33 @@
-import React from 'react'
+import React from "react";
 
-import { Typography, Container, Paper } from '@mui/material'
+import { Typography } from "@mui/material";
 
-const AudioPlayer = () => {
+type AudioPlayerProps = {
+  currentSong?: string;
+  songCount: number;
+  songIndex: number;
+  onNext: () => void;
+  onPrev: () => void;
+};
+// keep this audio player accessible also
+
+const AudioPlayer = ({
+  currentSong,
+  songCount,
+  songIndex,
+  onNext,
+  onPrev,
+}: AudioPlayerProps) => {
   return (
-    <Container>
-      <Typography variant='h3' component={'h1'} color={'primary'} textAlign={'center'} >
+    <>
+      <Typography variant="h3" component="h1" color="secondary" align="center">
         Audio Player
       </Typography>
-      <Paper elevation={2}>hello</Paper>
-    </Container>
-  )
-}
+      {currentSong && (
+        <audio preload="metadata" controls src={currentSong}></audio>
+      )}
+    </>
+  );
+};
 
 export default AudioPlayer;
