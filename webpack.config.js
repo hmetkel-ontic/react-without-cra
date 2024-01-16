@@ -54,6 +54,7 @@ module.exports = {
         },
       ],
     }),
+    new MiniCSSExtractPlugin()
   ],
 
   devServer: {

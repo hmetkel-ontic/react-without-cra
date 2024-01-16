@@ -11,6 +11,7 @@ import {
   SkipNext,
 } from "@mui/icons-material";
 
+import AudioProgressBar from "./AudioProgressBar";
 import VolumeInput from "./VolumeInput";
 
 interface AudioPlayerProps {
@@ -31,10 +32,13 @@ const AudioPlayer = ({
 }: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const [duration, setDuration] = useState<number>(0);
   const [isReady, setIsReady] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.2);
+
+  const [duration, setDuration] = useState<number>(0);
+  const [currrentProgress, setCurrrentProgress] = React.useState(0);
+  const [buffered, setBuffered] = React.useState(0);
 
   const prevVolume = useRef<number>(volume);
 
@@ -58,25 +62,65 @@ const AudioPlayer = ({
     }
   }
 
+  const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> = (
+    e
+  ) => {
+    const audio = e.currentTarget;
+    const dur = audio.duration;
+    if (dur > 0) {
+      for (let i = 0; i < audio.buffered.length; i++) {
+        if (
+          audio.buffered.start(audio.buffered.length - 1 - i) <
+          audio.currentTime
+        ) {
+          const bufferedLength = audio.buffered.end(
+            audio.buffered.length - 1 - i
+          );
+          setBuffered(bufferedLength);
+          break;
+        }
+      }
+    }
+  };
+
   return (
     <>
       <Typography variant="h3" component="h1" color="secondary" align="center">
         Audio Player
       </Typography>
       {currentAudio && (
-        <audio
-          ref={audioRef}
-          preload="metadata"
-          onDurationChange={(evt) => setDuration(evt.currentTarget.duration)}
-          onCanPlay={(evt) => {
-            evt.currentTarget.volume = volume;
-            setIsReady(true);
-          }}
-          onPlaying={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-        >
-          <source type="audio/mpeg" src={currentAudio.src} />
-        </audio>
+        <>
+          <audio
+            ref={audioRef}
+            preload="metadata"
+            onDurationChange={(evt) => setDuration(evt.currentTarget.duration)}
+            onCanPlay={(evt) => {
+              evt.currentTarget.volume = volume;
+              setIsReady(true);
+            }}
+            onPlaying={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onTimeUpdate={(e) => {
+              setCurrrentProgress(e.currentTarget.currentTime);
+              handleBufferProgress(e);
+            }}
+            onProgress={handleBufferProgress}
+          >
+            <source type="audio/mpeg" src={currentAudio.src} />
+          </audio>
+          <AudioProgressBar
+            duration={duration}
+            buffered={buffered}
+            currentProgress={currrentProgress}
+            onChange={(e) => {
+              if (!audioRef.current) return;
+
+              audioRef.current.currentTime = e.currentTarget.valueAsNumber;
+
+              setCurrrentProgress(e.currentTarget.valueAsNumber);
+            }}
+          />
+        </>
       )}
 
       <Typography variant="h3" component="h2" color="primary">

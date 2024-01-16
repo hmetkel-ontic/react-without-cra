@@ -4,6 +4,8 @@ import { Stack, CssBaseline, Paper } from "@mui/material";
 
 import AudioPlayer from "./Components/AudioPlayer";
 
+import "./App.css";
+
 const PATH_TO_AUDIO_DIR = "/assets/audio/";
 
 const audios = ["test1.mp3", "test2.mp3", "test3.mp3"];
