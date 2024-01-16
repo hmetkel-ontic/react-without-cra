@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { Typography, IconButton, CircularProgress } from "@mui/material";
 
@@ -15,20 +15,20 @@ import AudioProgressBar from "./AudioProgressBar";
 import VolumeInput from "./VolumeInput";
 
 interface AudioPlayerProps {
-  currentAudio: {
-    [k: string]: string;
-  } | null;
+  audios: { src: string; title: string }[];
   currentAudioIndex: number;
   onNext: () => void;
   onPrev: () => void;
+  totalAudiosCount: number;
 }
 // keep this audio player accessible also
 
 const AudioPlayer = ({
-  currentAudio,
+  audios,
   currentAudioIndex,
   onNext,
   onPrev,
+  totalAudiosCount,
 }: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -37,10 +37,20 @@ const AudioPlayer = ({
   const [volume, setVolume] = useState<number>(0.2);
 
   const [duration, setDuration] = useState<number>(0);
-  const [currrentProgress, setCurrrentProgress] = React.useState(0);
-  const [buffered, setBuffered] = React.useState(0);
+  const [currrentProgress, setCurrrentProgress] = useState(0);
+  const [buffered, setBuffered] = useState(0);
 
   const prevVolume = useRef<number>(volume);
+
+  useEffect(() => {
+    if (!audioRef.current || currentAudioIndex == -1) return;
+    audioRef.current?.pause();
+    setIsPlaying(false);
+    audioRef.current!.src = audios[currentAudioIndex].src;
+    setTimeout(() => {
+      audioRef.current?.play();
+    }, 500);
+  }, [currentAudioIndex]);
 
   function handleVolumeChange(volumeValue: number) {
     debugger;
@@ -63,12 +73,13 @@ const AudioPlayer = ({
   }
 
   const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> = (
-    e
+    evt
   ) => {
-    const audio = e.currentTarget;
-    const dur = audio.duration;
-    if (dur > 0) {
-      for (let i = 0; i < audio.buffered.length; i++) {
+    const audio = evt.currentTarget;
+    const duration = audio.duration;
+
+    if (duration > 0) {
+      for (let i = 0; i < audio.buffered.length; ++i) {
         if (
           audio.buffered.start(audio.buffered.length - 1 - i) <
           audio.currentTime
@@ -88,7 +99,7 @@ const AudioPlayer = ({
       <Typography variant="h3" component="h1" color="secondary" align="center">
         Audio Player
       </Typography>
-      {currentAudio && (
+      {currentAudioIndex !== -1 && (
         <>
           <audio
             ref={audioRef}
@@ -100,33 +111,35 @@ const AudioPlayer = ({
             }}
             onPlaying={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
-            onTimeUpdate={(e) => {
-              setCurrrentProgress(e.currentTarget.currentTime);
-              handleBufferProgress(e);
+            onTimeUpdate={(evt) => {
+              setCurrrentProgress(evt.currentTarget.currentTime);
+              handleBufferProgress(evt);
             }}
             onProgress={handleBufferProgress}
           >
-            <source type="audio/mpeg" src={currentAudio.src} />
+            <source type="audio/mpeg" src={audios[currentAudioIndex].src} />
           </audio>
           <AudioProgressBar
             duration={duration}
             buffered={buffered}
             currentProgress={currrentProgress}
-            onChange={(e) => {
-              if (!audioRef.current) return;
-
-              audioRef.current.currentTime = e.currentTarget.valueAsNumber;
-
-              setCurrrentProgress(e.currentTarget.valueAsNumber);
+            onChange={(evt) => {
+              audioRef.current!.currentTime = evt.currentTarget.valueAsNumber;
+              setCurrrentProgress(evt.currentTarget.valueAsNumber);
             }}
           />
         </>
       )}
 
       <Typography variant="h3" component="h2" color="primary">
-        {currentAudio?.title ?? "Selet a song"}
+        {currentAudioIndex === -1
+          ? "Selet a song"
+          : audios[currentAudioIndex].title}
       </Typography>
-      <IconButton disabled={!isReady} onClick={onPrev}>
+      <IconButton
+        disabled={!isReady || currentAudioIndex === 0}
+        onClick={onPrev}
+      >
         <SkipPrevious color="primary" />
       </IconButton>
       <IconButton
@@ -134,7 +147,7 @@ const AudioPlayer = ({
         onClick={togglePlayPause}
         aria-label={isPlaying ? "Pause" : "Play"}
       >
-        {!isReady && currentAudio ? (
+        {!isReady ? (
           <CircularProgress />
         ) : isPlaying ? (
           <PauseCircle color="primary" />
@@ -142,7 +155,10 @@ const AudioPlayer = ({
           <PlayCircle color="primary" />
         )}
       </IconButton>
-      <IconButton disabled={!isReady} onClick={onNext}>
+      <IconButton
+        disabled={!isReady || currentAudioIndex === totalAudiosCount - 1}
+        onClick={onNext}
+      >
         <SkipNext color="primary" />
       </IconButton>
 

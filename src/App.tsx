@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Stack, CssBaseline, Paper } from "@mui/material";
 
@@ -8,7 +8,20 @@ import "./App.css";
 
 const PATH_TO_AUDIO_DIR = "/assets/audio/";
 
-const audios = ["test1.mp3", "test2.mp3", "test3.mp3"];
+const audios = [
+  {
+    src: PATH_TO_AUDIO_DIR + "the-day-of-a-test.mp3",
+    title: "the-day-of-a-test",
+  },
+  {
+    src: PATH_TO_AUDIO_DIR + "printemps.mp3",
+    title: "printemps",
+  },
+  {
+    src: PATH_TO_AUDIO_DIR + "pianesque.mp3",
+    title: "pianesque",
+  },
+];
 
 import { styled } from "@mui/material/styles";
 
@@ -21,25 +34,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const App = () => {
-  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0); // remember to update this to -1 later
-  const [currentAudio, setCurrentAudio] = useState<{
-    [key: string]: string;
-  } | null>(null);
-
-  useEffect(() => {
-    if (currentAudioIndex == -1) return;
-
-    setCurrentAudio({
-      title: audios[currentAudioIndex],
-      src: getPathToAudio(audios[currentAudioIndex]),
-    });
-    console.log(
-      "currentAudio->",
-      currentAudio,
-      "currentAudioIndex->",
-      currentAudioIndex
-    );
-  }, [currentAudioIndex]);
+  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1); // remember to update this to -1 later
+  const currentAudio = audios[currentAudioIndex];
 
   function getPathToAudio(audio: string): string {
     return PATH_TO_AUDIO_DIR + audio;
@@ -49,10 +45,11 @@ const App = () => {
     <>
       <CssBaseline enableColorScheme />
       <AudioPlayer
-        currentAudio={currentAudio}
+        audios={audios}
         currentAudioIndex={currentAudioIndex}
         onNext={() => setCurrentAudioIndex((index) => index + 1)}
         onPrev={() => setCurrentAudioIndex((index) => index - 1)}
+        totalAudiosCount={audios.length}
       />
 
       <Stack
@@ -68,7 +65,7 @@ const App = () => {
                 backgroundColor: index === currentAudioIndex ? "red" : "",
               }}
             >
-              {audio}
+              {audio.title}
             </Item>
           );
         })}

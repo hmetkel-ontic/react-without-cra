@@ -18,11 +18,8 @@ export default function AudioProgressBar({
   buffered,
   ...rest
 }: AudioProgressBarProps) {
-  const progressBarWidth = isNaN(currentProgress / duration)
-    ? 0
-    : currentProgress / duration;
-
-  const bufferedWidth = isNaN(buffered / duration) ? 0 : buffered / duration;
+  const progressBarWidth = !duration ? 0 : currentProgress / duration;
+  const bufferedWidth = !duration ? 0 : buffered / duration;
 
   const progressStyles: ProgressCSSProps = {
     "--progress-width": progressBarWidth,
@@ -40,6 +37,7 @@ export default function AudioProgressBar({
           min={0}
           max={duration}
           value={currentProgress}
+          className="progress-bar"
           {...rest}
         />
       </div>

@@ -8,11 +8,13 @@
 }
 
 .progress-bar::before {
+  background-color: blue;
   transform: scaleX(var(--progress-width));
   z-index: 3;
 }
 
 .progress-bar::after {
+  background-color: "#777";
   transform: scaleX(var(--buffered-width));
   transform-origin: left;
   z-index: 2;
