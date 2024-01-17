@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, forwardRef } from "react";
 
 import { Typography, IconButton, CircularProgress } from "@mui/material";
 
@@ -20,6 +20,10 @@ interface AudioPlayerProps {
   onNext: () => void;
   onPrev: () => void;
   totalAudiosCount: number;
+  isPlaying: boolean;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+  audioRef: React.MutableRefObject<HTMLAudioElement | null>;
+  togglePlayPause: () => void;
 }
 // keep this audio player accessible also
 
@@ -29,11 +33,12 @@ const AudioPlayer = ({
   onNext,
   onPrev,
   totalAudiosCount,
+  isPlaying,
+  setIsPlaying,
+  audioRef,
+  togglePlayPause,
 }: AudioPlayerProps) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
   const [isReady, setIsReady] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.2);
 
   const [duration, setDuration] = useState<number>(0);
@@ -53,15 +58,9 @@ const AudioPlayer = ({
   }, [currentAudioIndex]);
 
   function handleVolumeChange(volumeValue: number) {
-    debugger;
     prevVolume.current = volume;
     audioRef.current!.volume = volumeValue;
     setVolume(volumeValue);
-  }
-
-  function togglePlayPause() {
-    isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
-    setIsPlaying((state) => !state);
   }
 
   function toggleMuteUnmute() {
@@ -72,27 +71,28 @@ const AudioPlayer = ({
     }
   }
 
-  const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> = (
-    evt
-  ) => {
-    const audio = evt.currentTarget;
-    const duration = audio.duration;
+  const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> =
+    function (evt) {
+      const audio = evt.currentTarget;
+      const duration = audio.duration;
 
-    if (duration > 0) {
-      for (let i = 0; i < audio.buffered.length; ++i) {
-        if (
-          audio.buffered.start(audio.buffered.length - 1 - i) <
-          audio.currentTime
-        ) {
-          const bufferedLength = audio.buffered.end(
-            audio.buffered.length - 1 - i
-          );
-          setBuffered(bufferedLength);
-          break;
+      // console.log("audio.bufferred",audio.buffered,"start", audio.buffered.start(0), "end", audio.buffered.en);
+
+      if (duration > 0) {
+        for (let i = 0; i < audio.buffered.length; ++i) {
+          if (
+            audio.buffered.start(audio.buffered.length - 1 - i) <
+            audio.currentTime
+          ) {
+            const bufferedLength = audio.buffered.end(
+              audio.buffered.length - 1 - i
+            );
+            setBuffered(bufferedLength);
+            break;
+          }
         }
       }
-    }
-  };
+    };
 
   return (
     <>

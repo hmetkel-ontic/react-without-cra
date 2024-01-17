@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { Stack, CssBaseline, Paper } from "@mui/material";
+import { PlayCircle, PauseCircle } from "@mui/icons-material";
 
 import AudioPlayer from "./Components/AudioPlayer";
 
 import "./App.css";
 
 const PATH_TO_AUDIO_DIR = "/assets/audio/";
+function getPathToAudio(audio: string): string {
+  return PATH_TO_AUDIO_DIR + audio;
+}
 
 // audios from pixabay
 const audios = [
   {
-    src: PATH_TO_AUDIO_DIR + "the-day-of-a-test.mp3",
+    src: getPathToAudio("the-day-of-a-test.mp3"),
     title: "the-day-of-a-test",
   },
   {
-    src: PATH_TO_AUDIO_DIR + "printemps.mp3",
+    src: getPathToAudio("printemps.mp3"),
     title: "printemps",
   },
   {
-    src: PATH_TO_AUDIO_DIR + "pianesque.mp3",
+    src: getPathToAudio("pianesque.mp3"),
     title: "pianesque",
   },
 ];
@@ -36,10 +40,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const App = () => {
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0); // remember to update this to -1 later
-  const currentAudio = audios[currentAudioIndex];
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  function getPathToAudio(audio: string): string {
-    return PATH_TO_AUDIO_DIR + audio;
+  function togglePlayPause() {
+    isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
+    setIsPlaying((state) => !state);
   }
 
   return (
@@ -51,6 +57,10 @@ const App = () => {
         onNext={() => setCurrentAudioIndex((index) => index + 1)}
         onPrev={() => setCurrentAudioIndex((index) => index - 1)}
         totalAudiosCount={audios.length}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        audioRef={audioRef}
+        togglePlayPause={togglePlayPause}
       />
 
       <Stack
@@ -63,10 +73,19 @@ const App = () => {
             <Item
               key={index}
               sx={{
-                backgroundColor: index === currentAudioIndex ? "red" : "",
+                backgroundColor: index === currentAudioIndex ? "#888" : "",
               }}
+              onClick={() => setCurrentAudioIndex(index)}
             >
               {audio.title}
+              {index === currentAudioIndex && isPlaying ? (
+                <PauseCircle
+                  color="primary"
+                  onClick={() => togglePlayPause()}
+                />
+              ) : (
+                <PlayCircle color="primary" onClick={() => togglePlayPause()} />
+              )}
             </Item>
           );
         })}
