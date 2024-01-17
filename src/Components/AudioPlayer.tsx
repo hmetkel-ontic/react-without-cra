@@ -1,6 +1,12 @@
 import React from "react";
 
-import { Typography, IconButton, CircularProgress } from "@mui/material";
+import {
+  Typography,
+  IconButton,
+  CircularProgress,
+  Container,
+  Grid,
+} from "@mui/material";
 
 import {
   PlayCircle,
@@ -13,6 +19,8 @@ import {
 
 import AudioProgressBar from "./AudioProgressBar";
 import VolumeInput from "./VolumeInput";
+
+import { playPauseButtons, getFormattedTime } from "../utils";
 
 interface AudioPlayerProps {
   audios: { src: string; title: string }[];
@@ -27,7 +35,6 @@ interface AudioPlayerProps {
     toggle?: (() => void) | undefined;
   }>;
 }
-// keep this audio player accessible also
 
 const AudioPlayer = ({
   audios,
@@ -85,8 +92,6 @@ const AudioPlayer = ({
       const audio = evt.currentTarget;
       const duration = audio.duration;
 
-      // console.log("audio.bufferred",audio.buffered,"start", audio.buffered.start(0), "end", audio.buffered.en);
-
       if (duration > 0) {
         for (let i = 0; i < audio.buffered.length; ++i) {
           if (
@@ -104,85 +109,102 @@ const AudioPlayer = ({
     };
 
   return (
-    <>
-      <Typography variant="h3" component="h1" color="secondary" align="center">
-        Audio Player
-      </Typography>
+    <Container maxWidth={false} disableGutters>
       {currentAudioIndex !== -1 && (
-        <>
-          <audio
-            ref={audioRef}
-            preload="metadata"
-            onDurationChange={(evt) => setDuration(evt.currentTarget.duration)}
-            onCanPlay={(evt) => {
-              evt.currentTarget.volume = volume;
-              setIsReady(true);
-            }}
-            onPlaying={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-            onTimeUpdate={(evt) => {
-              setCurrrentProgress(evt.currentTarget.currentTime);
-              handleBufferProgress(evt);
-            }}
-            onProgress={handleBufferProgress}
+        <Grid container textAlign={"center"} alignItems={"center"}>
+          <Grid item sm={3} xs={6}>
+            <IconButton
+              disabled={!isReady || currentAudioIndex === 0}
+              onClick={onPrev}
+            >
+              <SkipPrevious color="primary" sx={playPauseButtons} />
+            </IconButton>
+            <IconButton
+              disabled={!isReady}
+              onClick={togglePlayPause}
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {!isReady ? (
+                <CircularProgress />
+              ) : isPlaying ? (
+                <PauseCircle color="primary" sx={playPauseButtons} />
+              ) : (
+                <PlayCircle color="primary" sx={playPauseButtons} />
+              )}
+            </IconButton>
+            <IconButton
+              disabled={!isReady || currentAudioIndex === totalAudiosCount - 1}
+              onClick={onNext}
+            >
+              <SkipNext color="primary" sx={playPauseButtons} />
+            </IconButton>
+          </Grid>
+          <Grid item sm={9} xs={6}>
+            <audio
+              ref={audioRef}
+              preload="metadata"
+              onDurationChange={(evt) =>
+                setDuration(evt.currentTarget.duration)
+              }
+              onCanPlay={(evt) => {
+                evt.currentTarget.volume = volume;
+                setIsReady(true);
+              }}
+              onPlaying={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onTimeUpdate={(evt) => {
+                setCurrrentProgress(evt.currentTarget.currentTime);
+                handleBufferProgress(evt);
+              }}
+              onProgress={handleBufferProgress}
+            >
+              <source type="audio/mpeg" src={audios[currentAudioIndex].src} />
+            </audio>
+            <AudioProgressBar
+              duration={duration}
+              buffered={buffered}
+              currentProgress={currrentProgress}
+              onChange={(evt) => {
+                audioRef.current!.currentTime = evt.currentTarget.valueAsNumber;
+                setCurrrentProgress(evt.currentTarget.valueAsNumber);
+              }}
+            />
+          </Grid>
+        </Grid>
+      )}
+      <Grid container px={4} spacing={1} textAlign={"center"} alignItems={"center"}>
+        <Grid item xs={2}  sx={{ display: "flex", justifyContent: "flex-start" }}>
+          <Typography variant="body1">
+            {getFormattedTime(currrentProgress)} / {getFormattedTime(duration)}
+          </Typography>
+        </Grid>
+        <Grid item xs={5}>
+          <Typography variant="h5" component="h2" color="primary">
+            {currentAudioIndex === -1
+              ? "Selet a song"
+              : audios[currentAudioIndex].title}
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          xs={5}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          {isReady && (
+            <VolumeInput volume={volume} onVolumeChange={handleVolumeChange} />
+          )}
+
+          <IconButton
+            disabled={!isReady}
+            onClick={toggleMuteUnmute}
+            aria-label={!volume ? "Unmute" : "Mute"}
           >
-            <source type="audio/mpeg" src={audios[currentAudioIndex].src} />
-          </audio>
-          <AudioProgressBar
-            duration={duration}
-            buffered={buffered}
-            currentProgress={currrentProgress}
-            onChange={(evt) => {
-              audioRef.current!.currentTime = evt.currentTarget.valueAsNumber;
-              setCurrrentProgress(evt.currentTarget.valueAsNumber);
-            }}
-          />
-        </>
-      )}
-
-      <Typography variant="h3" component="h2" color="primary">
-        {currentAudioIndex === -1
-          ? "Selet a song"
-          : audios[currentAudioIndex].title}
-      </Typography>
-      <IconButton
-        disabled={!isReady || currentAudioIndex === 0}
-        onClick={onPrev}
-      >
-        <SkipPrevious color="primary" />
-      </IconButton>
-      <IconButton
-        disabled={!isReady}
-        onClick={togglePlayPause}
-        aria-label={isPlaying ? "Pause" : "Play"}
-      >
-        {!isReady ? (
-          <CircularProgress />
-        ) : isPlaying ? (
-          <PauseCircle color="primary" />
-        ) : (
-          <PlayCircle color="primary" />
-        )}
-      </IconButton>
-      <IconButton
-        disabled={!isReady || currentAudioIndex === totalAudiosCount - 1}
-        onClick={onNext}
-      >
-        <SkipNext color="primary" />
-      </IconButton>
-
-      {isReady && (
-        <VolumeInput volume={volume} onVolumeChange={handleVolumeChange} />
-      )}
-
-      <IconButton
-        disabled={!isReady}
-        onClick={toggleMuteUnmute}
-        aria-label={!volume ? "Unmute" : "Mute"}
-      >
-        {!volume ? <VolumeOff /> : <VolumeUp color="primary" />}
-      </IconButton>
-    </>
+            {!volume ? <VolumeOff /> : <VolumeUp color="primary" />}
+          </IconButton>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

@@ -40,11 +40,13 @@ export default function AudioList({
             {index === currentAudioIndex && isPlaying ? (
               <PauseCircle
                 color="primary"
+                aria-label="Pause current audio"
                 onClick={() => controlPlayPauseRef.current?.toggle()}
               />
             ) : (
               <PlayCircle
                 color="primary"
+                aria-label="Play current audio"
                 onClick={() => controlPlayPauseRef.current?.toggle()}
               />
             )}

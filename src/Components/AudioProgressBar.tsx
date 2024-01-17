@@ -24,6 +24,7 @@ export default function AudioProgressBar({
   const progressStyles: ProgressCSSProps = {
     "--progress-width": progressBarWidth,
     "--buffered-width": bufferedWidth,
+    "width" : "90%"
   };
 
   return (
