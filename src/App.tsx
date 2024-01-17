@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
-import { Stack, CssBaseline, Paper } from "@mui/material";
-import { PlayCircle, PauseCircle } from "@mui/icons-material";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import AudioPlayer from "./Components/AudioPlayer";
+import AudioList from "./Components/AudioList";
 
 import "./App.css";
 
@@ -28,23 +28,14 @@ const audios = [
   },
 ];
 
-import { styled } from "@mui/material/styles";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 const App = () => {
-  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0); // remember to update this to -1 later
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [currentAudioIndex, setCurrentAudioIndex] = React.useState<number>(0); // remember to update this to -1 later
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
-
-  const controlPlayPauseRef = useRef<{ toggle: () => void }>({toggle: () => {}});
+  const controlPlayPauseRef = React.useRef<{ toggle: () => void }>({
+    toggle: () => {},
+  });
 
   return (
     <>
@@ -61,17 +52,29 @@ const App = () => {
         controlPlayPauseRef={controlPlayPauseRef}
       />
 
-      <Stack
+      <AudioList
+        audios={audios}
+        currentAudioIndex={currentAudioIndex}
+        setCurrentAudioIndex={setCurrentAudioIndex}
+        isPlaying={isPlaying}
+        controlPlayPauseRef={controlPlayPauseRef}
+      />
+
+      {/* <Stack
         sx={{
           width: "50%",
         }}
       >
         {audios.map((audio, index) => {
           return (
-            <Item
+            <Box
               key={index}
               sx={{
+                display: "flex",
                 backgroundColor: index === currentAudioIndex ? "#888" : "",
+                borderRadius: 1,
+                py: 1, px:2,
+                justifyContent:"space-between"
               }}
               onClick={() => setCurrentAudioIndex(index)}
             >
@@ -87,10 +90,10 @@ const App = () => {
                   onClick={() => controlPlayPauseRef.current?.toggle()}
                 />
               )}
-            </Item>
+            </Box>
           );
         })}
-      </Stack>
+      </Stack> */}
     </>
   );
 };

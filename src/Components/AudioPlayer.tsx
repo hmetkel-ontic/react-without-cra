@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, forwardRef } from "react";
+import React from "react";
 
 import { Typography, IconButton, CircularProgress } from "@mui/material";
 
@@ -40,16 +40,16 @@ const AudioPlayer = ({
   audioRef,
   controlPlayPauseRef,
 }: AudioPlayerProps) => {
-  const [isReady, setIsReady] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(0.2);
+  const [isReady, setIsReady] = React.useState<boolean>(false);
+  const [volume, setVolume] = React.useState<number>(0.2);
 
-  const [duration, setDuration] = useState<number>(0);
-  const [currrentProgress, setCurrrentProgress] = useState(0);
-  const [buffered, setBuffered] = useState(0);
+  const [duration, setDuration] = React.useState<number>(0);
+  const [currrentProgress, setCurrrentProgress] = React.useState(0);
+  const [buffered, setBuffered] = React.useState(0);
 
-  const prevVolume = useRef<number>(volume);
+  const prevVolume = React.useRef<number>(volume);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!audioRef.current || currentAudioIndex == -1) return;
     audioRef.current?.pause();
     setIsPlaying(false);
