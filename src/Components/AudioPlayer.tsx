@@ -23,7 +23,9 @@ interface AudioPlayerProps {
   isPlaying: boolean;
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
-  togglePlayPause: () => void;
+  controlPlayPauseRef: React.MutableRefObject<{
+    toggle?: (() => void) | undefined;
+  }>;
 }
 // keep this audio player accessible also
 
@@ -36,7 +38,7 @@ const AudioPlayer = ({
   isPlaying,
   setIsPlaying,
   audioRef,
-  togglePlayPause,
+  controlPlayPauseRef,
 }: AudioPlayerProps) => {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.2);
@@ -51,7 +53,7 @@ const AudioPlayer = ({
     if (!audioRef.current || currentAudioIndex == -1) return;
     audioRef.current?.pause();
     setIsPlaying(false);
-    audioRef.current!.src = audios[currentAudioIndex].src;
+    audioRef.current.src = audios[currentAudioIndex].src;
     setTimeout(() => {
       audioRef.current?.play();
     }, 500);
@@ -70,6 +72,13 @@ const AudioPlayer = ({
       handleVolumeChange(0);
     }
   }
+
+  function togglePlayPause() {
+    isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
+    setIsPlaying((state) => !state);
+  }
+
+  controlPlayPauseRef.current.toggle = togglePlayPause;
 
   const handleBufferProgress: React.ReactEventHandler<HTMLAudioElement> =
     function (evt) {

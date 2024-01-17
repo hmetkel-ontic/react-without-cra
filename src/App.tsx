@@ -43,10 +43,8 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  function togglePlayPause() {
-    isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
-    setIsPlaying((state) => !state);
-  }
+
+  const controlPlayPauseRef = useRef<{ toggle: () => void }>({toggle: () => {}});
 
   return (
     <>
@@ -60,7 +58,7 @@ const App = () => {
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
         audioRef={audioRef}
-        togglePlayPause={togglePlayPause}
+        controlPlayPauseRef={controlPlayPauseRef}
       />
 
       <Stack
@@ -81,10 +79,13 @@ const App = () => {
               {index === currentAudioIndex && isPlaying ? (
                 <PauseCircle
                   color="primary"
-                  onClick={() => togglePlayPause()}
+                  onClick={() => controlPlayPauseRef.current?.toggle()}
                 />
               ) : (
-                <PlayCircle color="primary" onClick={() => togglePlayPause()} />
+                <PlayCircle
+                  color="primary"
+                  onClick={() => controlPlayPauseRef.current?.toggle()}
+                />
               )}
             </Item>
           );
