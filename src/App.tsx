@@ -8,6 +8,7 @@ import "./App.css";
 
 const PATH_TO_AUDIO_DIR = "/assets/audio/";
 
+// audios from pixabay
 const audios = [
   {
     src: PATH_TO_AUDIO_DIR + "the-day-of-a-test.mp3",
@@ -34,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const App = () => {
-  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1); // remember to update this to -1 later
+  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0); // remember to update this to -1 later
   const currentAudio = audios[currentAudioIndex];
 
   function getPathToAudio(audio: string): string {
