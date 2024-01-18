@@ -1,8 +1,12 @@
 import React from "react";
 
+import { Slider } from "@mui/material";
+
 interface VolumeInputProps {
   volume: number;
-  onVolumeChange: (volume: number) => void;
+  onVolumeChange:
+    | ((event: Event, value: number | number[], activeThumb: number) => void)
+    | undefined;
 }
 
 export default function VolumeInput({
@@ -10,15 +14,14 @@ export default function VolumeInput({
   onVolumeChange,
 }: VolumeInputProps) {
   return (
-    <input
-      aria-label="Volume"
-      name="volume"
-      type="range"
+    <Slider
+      aria-label="Volume Slider"
       min={0}
       max={1}
       step={0.01}
       value={volume}
-      onChange={(evt) => onVolumeChange(evt.currentTarget.valueAsNumber)}
+      color="warning"
+      onChange={onVolumeChange}
     />
   );
 }

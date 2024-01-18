@@ -1,6 +1,5 @@
 const playPauseButtons = {
   fontSize: {
-    md: 60,
     sm: 50,
     xs: 30,
   },

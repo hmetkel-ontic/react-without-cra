@@ -8,7 +8,6 @@
 }
 
 .progress-bar::before {
-  background-color: blue;
   transform: scaleX(var(--progress-width));
   z-index: 3;
 }
@@ -19,3 +18,8 @@
   transform-origin: left;
   z-index: 2;
 }
+
+.Mui-disabled {
+  color: #e0e0e0;
+}
+
