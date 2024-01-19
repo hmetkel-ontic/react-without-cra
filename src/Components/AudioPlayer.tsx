@@ -204,7 +204,6 @@ const AudioPlayer = ({
               handleProgressBarChange={handleProgressBarChange}
             />
           </Grid>
-          <Grid item md={2} />
           <Grid
             item
             md={2}
@@ -214,6 +213,8 @@ const AudioPlayer = ({
                 xs: "none",
                 sm: "flex",
               },
+              m: 0,
+              ml: "auto",
               alignItems: "center",
               justifyContent: "flex-end",
             }}
