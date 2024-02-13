@@ -2,7 +2,13 @@ import React from "react";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { AudioPlayer, AudioList } from "./components";
+import {
+  AudioPlayer,
+  AudioList,
+  Pagination,
+  PaginatedAudioList,
+} from "./components";
+import { Typography } from "@mui/material";
 
 import "./App.css";
 
@@ -15,6 +21,54 @@ import { items } from "./constants";
 
 // audios from pixabay
 const audios = [
+  {
+    src: getPathToAudio("the-day-of-a-test.mp3"),
+    title: "the-day-of-a-test",
+  },
+  {
+    src: getPathToAudio("printemps.mp3"),
+    title: "printemps",
+  },
+  {
+    src: getPathToAudio("pianesque.mp3"),
+    title: "pianesque",
+  },
+  {
+    src: getPathToAudio("the-day-of-a-test.mp3"),
+    title: "the-day-of-a-test",
+  },
+  {
+    src: getPathToAudio("printemps.mp3"),
+    title: "printemps",
+  },
+  {
+    src: getPathToAudio("pianesque.mp3"),
+    title: "pianesque",
+  },
+  {
+    src: getPathToAudio("the-day-of-a-test.mp3"),
+    title: "the-day-of-a-test",
+  },
+  {
+    src: getPathToAudio("printemps.mp3"),
+    title: "printemps",
+  },
+  {
+    src: getPathToAudio("pianesque.mp3"),
+    title: "pianesque",
+  },
+  {
+    src: getPathToAudio("the-day-of-a-test.mp3"),
+    title: "the-day-of-a-test",
+  },
+  {
+    src: getPathToAudio("printemps.mp3"),
+    title: "printemps",
+  },
+  {
+    src: getPathToAudio("pianesque.mp3"),
+    title: "pianesque",
+  },
   {
     src: getPathToAudio("the-day-of-a-test.mp3"),
     title: "the-day-of-a-test",
@@ -113,6 +167,11 @@ const App = () => {
   return (
     <>
       <CssBaseline enableColorScheme />
+
+      <Typography variant="h4" component="h1" textAlign="center" gutterBottom>
+        Audio Player
+      </Typography>
+
       <AudioPlayer
         audios={audios}
         currentAudioIndex={currentAudioIndex}
@@ -124,21 +183,16 @@ const App = () => {
         audioRef={audioRef}
         controlPlayPauseRef={controlPlayPauseRef}
       />
-      {/* using render Item prop pattern here */}
-      {/* <VirtualisedList
-        items={items}
-        renderItem={(item) => item}
-        listContainerHeight={500}
-        listContainerWidth={360}
-        listItemHeight={60}
-      /> */}
-      <AudioList
+
+      <PaginatedAudioList data={audios} />
+
+      {/* <AudioList
         audios={audios}
         currentAudioIndex={currentAudioIndex}
         setCurrentAudioIndex={setCurrentAudioIndex}
         isPlaying={isPlaying}
         controlPlayPauseRef={controlPlayPauseRef}
-      />
+      /> */}
     </>
   );
 };

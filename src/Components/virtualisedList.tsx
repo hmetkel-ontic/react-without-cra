@@ -51,6 +51,7 @@ export default function VirtualisedList<T>(props: Props<T>) {
     0,
     Math.floor(scrollTop / listItemHeight) - buffer
   );
+
   const lastItemIndex = Math.min(
     items.length,
     Math.ceil((scrollTop + listContainerHeight) / listItemHeight) + buffer
@@ -61,9 +62,8 @@ export default function VirtualisedList<T>(props: Props<T>) {
   const paddingTop = firstItemIndex * listItemHeight;
   const itemsHeight = itemsCount * listItemHeight;
   const paddingBottom = totalHeight - paddingTop - itemsHeight;
-
   const visibleItems = items.slice(firstItemIndex, lastItemIndex);
-  console.log("visibleItems", visibleItems);
+
   return (
     <Box
       component="div"

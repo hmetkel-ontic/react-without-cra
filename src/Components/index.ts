@@ -3,6 +3,8 @@ import AudioPlayer from "./audioPlayer";
 import AudioProgressBar from "./audioProgressBar";
 import VolumeInput from "./volumeInput";
 import VirtualisedList from "./virtualisedList";
+import Pagination from "./pagination";
+import PaginatedAudioList from "./paginatedAudioList";
 
 export {
   AudioList,
@@ -10,4 +12,6 @@ export {
   AudioProgressBar,
   VolumeInput,
   VirtualisedList,
+  Pagination,
+  PaginatedAudioList,
 };

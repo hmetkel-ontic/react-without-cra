@@ -28,3 +28,9 @@
 .Mui-disabled {
   color: #e0e0e0;
 }
+
+.c-xy {
+  display: flex;
+  justify-content: cneter;
+  align-items: center;
+}
