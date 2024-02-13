@@ -18,9 +18,8 @@ import {
   SkipNext,
 } from "@mui/icons-material";
 
-import AudioProgressBar from "./AudioProgressBar";
-import VolumeInput from "./VolumeInput";
-
+import AudioProgressBar from "./audioProgressBar";
+import VolumeInput from "./volumeInput";
 import { playPauseButtons } from "../utils";
 
 interface AudioPlayerProps {
@@ -126,7 +125,7 @@ const AudioPlayer = ({
   return (
     <Container
       maxWidth={false}
-      sx={{ position: "absolute", bottom: 0, bgcolor: "#111", flexGrow: 1 }}
+      sx={{ position: "fixed", bottom: 0, bgcolor: "#111", flexGrow: 1 }}
     >
       {currentAudioIndex !== -1 && (
         <Grid container textAlign={"center"} alignItems={"center"} columns={16}>

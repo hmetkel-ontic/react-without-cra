@@ -8,7 +8,6 @@ interface ProgressCSSProps extends React.CSSProperties {
 import { Box, Typography, Slider } from "@mui/material";
 
 import { getFormattedTime } from "../utils";
-import { CurrencyPound } from "@mui/icons-material";
 
 interface AudioProgressBarProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
