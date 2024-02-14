@@ -6,13 +6,7 @@ import VirtualisedList from "./virtualisedList";
 import AudioLIstItem from "./audioListItem";
 
 export default function AudioList(props: AudioListProps) {
-  const {
-    audios,
-    currentAudioIndex,
-    isPlaying,
-    setCurrentAudioIndex,
-    controlPlayPauseRef,
-  } = props;
+  const { audios, currentAudioIndex, isPlaying, handleAudioChange } = props;
 
   return (
     <Container maxWidth={"md"}>
@@ -20,6 +14,7 @@ export default function AudioList(props: AudioListProps) {
         listContainerWidth={500}
         listItemHeight={60}
         items={audios}
+        handleClick={(index: number) => handleAudioChange(index)}
         renderItem={(audio: AudioProps, index: number | undefined) =>
           index !== undefined ? (
             <AudioLIstItem
@@ -27,8 +22,6 @@ export default function AudioList(props: AudioListProps) {
               currentAudioIndex={currentAudioIndex}
               isPlaying={isPlaying}
               audio={audio}
-              controlPlayPauseRef={controlPlayPauseRef}
-              setCurrentAudioIndex={setCurrentAudioIndex}
             />
           ) : null
         }

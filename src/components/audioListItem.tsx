@@ -5,14 +5,7 @@ import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 export default function AudioLIstItem(props: AudioListItemProps) {
-  const {
-    index,
-    currentAudioIndex,
-    audio,
-    setCurrentAudioIndex,
-    controlPlayPauseRef,
-    isPlaying,
-  } = props;
+  const { index, currentAudioIndex, audio, isPlaying } = props;
 
   return (
     <Box
@@ -26,21 +19,12 @@ export default function AudioLIstItem(props: AudioListItemProps) {
         px: 2,
         justifyContent: "space-between",
       }}
-      onClick={() => setCurrentAudioIndex(index)}
     >
       {audio.title}
       {index === currentAudioIndex && isPlaying ? (
-        <PauseCircleIcon
-          color="primary"
-          aria-label="Pause current audio"
-          onClick={() => controlPlayPauseRef.current?.toggle()}
-        />
+        <PauseCircleIcon color="primary" aria-label="Pause current audio" />
       ) : (
-        <PlayCircleIcon
-          color="primary"
-          aria-label="Play current audio"
-          onClick={() => controlPlayPauseRef.current?.toggle()}
-        />
+        <PlayCircleIcon color="primary" aria-label="Play current audio" />
       )}
     </Box>
   );

@@ -34,6 +34,7 @@ export default function VirtualisedList<T>(props: VirtualisedListProps<T>) {
     listContainerWidth = LIST_CONTAINER_WIDTH,
     listContainerHeight = LIST_CONTAINER_HEIGHT,
     buffer = BUFFER,
+    handleClick,
   } = props;
 
   const [scrollTop, setScrollTop] = React.useState(0);
@@ -68,6 +69,7 @@ export default function VirtualisedList<T>(props: VirtualisedListProps<T>) {
           <ListItem
             disablePadding
             key={index}
+            onClick={() => handleClick?.(index)}
             style={styles.listItem(listItemHeight)}
           >
             <ListItemButton sx={{ p: 0 }}>

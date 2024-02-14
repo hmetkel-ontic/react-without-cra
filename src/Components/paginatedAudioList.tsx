@@ -38,8 +38,6 @@ export default function PaginatedAudioList<T>(
               currentAudioIndex={currentAudioIndex}
               isPlaying={isPlaying}
               audio={audio as AudioProps}
-              controlPlayPauseRef={controlPlayPauseRef}
-              setCurrentAudioIndex={setCurrentAudioIndex}
             />
           ) : null
         }

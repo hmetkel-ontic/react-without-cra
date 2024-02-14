@@ -694,6 +694,11 @@ const App = () => {
     toggle: () => {},
   });
 
+  function handleAudioChange(index: number) {
+    setCurrentAudioIndex(index);
+    controlPlayPauseRef.current?.toggle();
+  }
+
   function handleViewChange(
     event: React.MouseEvent<HTMLElement>,
     newView: string
@@ -745,9 +750,8 @@ const App = () => {
         <AudioList
           audios={audios}
           currentAudioIndex={currentAudioIndex}
-          setCurrentAudioIndex={setCurrentAudioIndex}
           isPlaying={isPlaying}
-          controlPlayPauseRef={controlPlayPauseRef}
+          handleAudioChange={handleAudioChange}
         />
       ) : (
         <PaginatedAudioList
