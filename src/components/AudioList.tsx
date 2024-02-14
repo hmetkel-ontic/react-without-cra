@@ -1,7 +1,6 @@
 import React from "react";
 
-import { PauseCircle, PlayCircle } from "@mui/icons-material";
-import { Container, Box } from "@mui/material";
+import { Container } from "@mui/material";
 
 import VirtualisedList from "./virtualisedList";
 import AudioLIstItem from "./audioListItem";
