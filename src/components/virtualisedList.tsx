@@ -26,16 +26,7 @@ const styles = {
   listItem: (height: number) => ({ height }),
 } as any;
 
-interface Props<T> {
-  items: T[];
-  renderItem: (item: T, index?: number) => React.ReactNode;
-  listContainerHeight?: number;
-  listContainerWidth?: number;
-  listItemHeight?: number;
-  buffer?: number;
-}
-
-export default function VirtualisedList<T>(props: Props<T>) {
+export default function VirtualisedList<T>(props: VirtualisedListProps<T>) {
   const {
     items,
     renderItem,
