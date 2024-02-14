@@ -2,12 +2,7 @@ import React from "react";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import {
-  AudioPlayer,
-  AudioList,
-  Pagination,
-  PaginatedAudioList,
-} from "./components";
+import { AudioPlayer, AudioList, PaginatedAudioList } from "./components";
 import { Typography } from "@mui/material";
 
 import "./App.css";
