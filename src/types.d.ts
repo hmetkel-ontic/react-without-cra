@@ -1,6 +1,7 @@
 declare interface AudioProps {
   src: string;
   title: string;
+  id: number;
 }
 
 interface AudioListProps {
@@ -8,6 +9,10 @@ interface AudioListProps {
   currentAudioIndex: number;
   isPlaying: boolean;
   handleAudioChange: (index: number) => void;
+}
+
+declare interface WithId {
+  id: number;
 }
 
 declare interface AudioListItemProps {
@@ -31,8 +36,5 @@ declare interface PaginatedAudioListProps<T> {
   audios: T[];
   currentAudioIndex: number;
   isPlaying: boolean;
-  controlPlayPauseRef: React.MutableRefObject<{
-    toggle: () => void;
-  }>;
-  setCurrentAudioIndex: React.Dispatch<React.SetStateAction<number>>;
+  handleAudioChange: (index: number) => void;
 }

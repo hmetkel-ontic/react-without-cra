@@ -10,679 +10,840 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import TableChartIcon from "@mui/icons-material/TableChart";
 
-import { AudioPlayer, AudioList, PaginatedAudioList } from "./components";
+import { AudioPlayer, AudioList, PaginatedAudioList } from "./myComponents";
 import { Typography } from "@mui/material";
 
 import "./App.css";
 
-const PATH_TO_AUDIO_DIR = "/assets/audio/";
-function getPathToAudio(audio: string): string {
-  return PATH_TO_AUDIO_DIR + audio;
-}
-
-// audios from pixabay
 const audios = [
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 1,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 2,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 3,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 4,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 5,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 6,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 7,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 8,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 9,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 10,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 11,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 12,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 13,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 14,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 15,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 16,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 17,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 18,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 19,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 20,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 21,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 22,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 23,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 24,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 25,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 26,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 27,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 28,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 29,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 30,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 31,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 32,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 33,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 34,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 35,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 36,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 37,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 38,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 39,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 40,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 41,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 42,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 43,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 44,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 45,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 46,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 47,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 48,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 49,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 50,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 51,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 52,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 53,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 54,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 55,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 56,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 57,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 58,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 59,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 60,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 61,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 62,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 63,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 64,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 65,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 66,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 67,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 68,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 69,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 70,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 71,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 72,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 73,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 74,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 75,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 76,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 77,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 78,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 79,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 80,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 81,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 82,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 83,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 84,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 85,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 86,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 87,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 88,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 89,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 90,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 91,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 92,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 93,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 94,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 95,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 96,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 97,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 98,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 99,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 100,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 101,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 102,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 103,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 104,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 105,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 106,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 107,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 108,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 109,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 110,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 111,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 112,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 113,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 114,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 115,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 116,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 117,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 118,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 119,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 120,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 121,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 122,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 123,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 124,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 125,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 126,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 127,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 128,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 129,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 130,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 131,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 132,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 133,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 134,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 135,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 136,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 137,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 138,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 139,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 140,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 141,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 142,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 143,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 144,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 145,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 146,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 147,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 148,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 149,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 150,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 151,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 152,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 153,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 154,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 155,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 156,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 157,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 158,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 159,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 160,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 161,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 162,
   },
   {
-    src: getPathToAudio("the-day-of-a-test.mp3"),
+    src: "/assets/audio/the-day-of-a-test.mp3",
     title: "the-day-of-a-test",
+    id: 163,
   },
   {
-    src: getPathToAudio("printemps.mp3"),
+    src: "/assets/audio/printemps.mp3",
     title: "printemps",
+    id: 164,
   },
   {
-    src: getPathToAudio("pianesque.mp3"),
+    src: "/assets/audio/pianesque.mp3",
     title: "pianesque",
+    id: 165,
   },
 ];
+
+// audios from pixabay
 
 const App = () => {
   const [view, setView] = React.useState<string>("list-view");
@@ -695,7 +856,7 @@ const App = () => {
   });
 
   function handleAudioChange(index: number) {
-    setCurrentAudioIndex(index);
+    setCurrentAudioIndex(index - 1);
     controlPlayPauseRef.current?.toggle();
   }
 
@@ -757,9 +918,8 @@ const App = () => {
         <PaginatedAudioList
           audios={audios}
           currentAudioIndex={currentAudioIndex}
-          setCurrentAudioIndex={setCurrentAudioIndex}
           isPlaying={isPlaying}
-          controlPlayPauseRef={controlPlayPauseRef}
+          handleAudioChange={handleAudioChange}
         />
       )}
     </>

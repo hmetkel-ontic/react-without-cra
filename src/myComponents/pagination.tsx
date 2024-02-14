@@ -11,8 +11,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 
 const styles = {
   list: {
+    width: {
+      sm: "50%",
+      xs: "100%",
+    },
     display: "flex",
     alignItems: "center",
+    margin: "auto",
   },
   listItem: {
     display: "inline-block",

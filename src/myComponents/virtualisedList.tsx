@@ -26,7 +26,9 @@ const styles = {
   listItem: (height: number) => ({ height }),
 } as any;
 
-export default function VirtualisedList<T>(props: VirtualisedListProps<T>) {
+export default function VirtualisedList<T>(
+  props: VirtualisedListProps<T & WithId>
+) {
   const {
     items,
     renderItem,
@@ -68,8 +70,8 @@ export default function VirtualisedList<T>(props: VirtualisedListProps<T>) {
         {visibleItems.map((item, index) => (
           <ListItem
             disablePadding
-            key={index}
-            onClick={() => handleClick?.(index)}
+            key={item.id}
+            onClick={() => handleClick?.(item?.id)}
             style={styles.listItem(listItemHeight)}
           >
             <ListItemButton sx={{ p: 0 }}>

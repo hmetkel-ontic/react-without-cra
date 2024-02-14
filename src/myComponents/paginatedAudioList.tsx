@@ -5,15 +5,9 @@ import Pagination from "./pagination";
 import AudioLIstItem from "./audioListItem";
 
 export default function PaginatedAudioList<T>(
-  props: PaginatedAudioListProps<T>
+  props: PaginatedAudioListProps<T & WithId>
 ) {
-  const {
-    audios,
-    currentAudioIndex,
-    isPlaying,
-    controlPlayPauseRef,
-    setCurrentAudioIndex,
-  } = props;
+  const { audios, currentAudioIndex, isPlaying, handleAudioChange } = props;
 
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [pageSize, setPageSize] = React.useState<number>(10);
@@ -31,13 +25,14 @@ export default function PaginatedAudioList<T>(
         listContainerWidth={500}
         listItemHeight={60}
         items={currentAudios}
-        renderItem={(audio: T, index: number | undefined) =>
+        handleClick={handleAudioChange}
+        renderItem={(item, index: number | undefined) =>
           index !== undefined ? (
             <AudioLIstItem
               index={index}
               currentAudioIndex={currentAudioIndex}
               isPlaying={isPlaying}
-              audio={audio as AudioProps}
+              audio={item as unknown as AudioProps}
             />
           ) : null
         }

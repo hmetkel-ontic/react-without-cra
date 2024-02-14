@@ -13,7 +13,7 @@ export default function AudioLIstItem(props: AudioListItemProps) {
       sx={{
         width: "100%",
         display: "flex",
-        backgroundColor: index === currentAudioIndex ? "#888" : "",
+        backgroundColor: audio.id - 1 === currentAudioIndex ? "#888" : "",
         borderRadius: 1,
         py: 1,
         px: 2,
