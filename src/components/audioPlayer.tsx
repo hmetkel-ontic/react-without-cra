@@ -4,9 +4,9 @@ import {
   Typography,
   IconButton,
   CircularProgress,
-  Container,
   Grid,
   Box,
+  colors,
 } from "@mui/material";
 
 import {
@@ -123,20 +123,21 @@ const AudioPlayer = ({
     };
 
   return (
-    <Container
-      maxWidth={false}
-      sx={{ position: "fixed", bottom: 0, bgcolor: "#111", flexGrow: 1 }}
-    >
+    <>
       {currentAudioIndex !== -1 && (
-        <Grid container textAlign={"center"} alignItems={"center"} columns={16}>
-          <Grid item md={4} sm={3} xs={6}>
-            <Typography variant="h6" component="h2" color="white">
-              {currentAudioIndex === -1
-                ? "Selet a song"
-                : audios[currentAudioIndex].title}
-            </Typography>
-          </Grid>
-          <Grid item md={8} xs={10}>
+        <Grid
+          container
+          columns={16}
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            zIndex: 12,
+            textAlign: "center",
+            alignItems: "center",
+            bgcolor: "secondary.main",
+          }}
+        >
+          <Grid xs={3}>
             <Box>
               <audio
                 ref={audioRef}
@@ -196,6 +197,13 @@ const AudioPlayer = ({
                 />
               </IconButton>
             </Box>
+          </Grid>
+          <Grid item xs={10}>
+            <Typography variant="h6" component="h2" color="white">
+              {currentAudioIndex === -1
+                ? "Selet a song"
+                : audios[currentAudioIndex].title}
+            </Typography>
             <AudioProgressBar
               duration={duration}
               buffered={buffered}
@@ -203,21 +211,7 @@ const AudioPlayer = ({
               handleProgressBarChange={handleProgressBarChange}
             />
           </Grid>
-          <Grid
-            item
-            md={2}
-            sm={3}
-            sx={{
-              display: {
-                xs: "none",
-                sm: "flex",
-              },
-              m: 0,
-              ml: "auto",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          >
+          <Grid item xs={3}>
             {isReady && (
               <VolumeInput
                 volume={volume}
@@ -239,7 +233,7 @@ const AudioPlayer = ({
           </Grid>
         </Grid>
       )}
-    </Container>
+    </>
   );
 };
 

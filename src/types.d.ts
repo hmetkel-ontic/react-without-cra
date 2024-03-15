@@ -4,6 +4,24 @@ declare interface AudioProps {
   id: number;
 }
 
+declare type State = {
+  accessToken: string;
+  audioData: any[];
+  loading: boolean;
+  error: any;
+};
+
+declare type AlbumsCardsViewProps = {
+  albums: State["audioData"];
+};
+
+declare type Action = {
+  updateAccessToken: (accessToken: State["accessToken"]) => void;
+  updateAudioData: (newAudioData: State["audioData"]) => void;
+  updateLoading: (loading: State["loading"]) => void;
+  updateError: (error: State["error"]) => void;
+};
+
 interface AudioListProps {
   audios: AudioProps[];
   currentAudioIndex: number;
@@ -37,4 +55,12 @@ declare interface PaginatedAudioListProps<T> {
   currentAudioIndex: number;
   isPlaying: boolean;
   handleAudioChange: (index: number) => void;
+}
+
+declare interface NavbarProps {
+  view: string;
+  onViewChange: (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    newView: string
+  ) => void;
 }

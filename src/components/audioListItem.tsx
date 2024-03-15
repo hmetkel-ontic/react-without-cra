@@ -22,7 +22,11 @@ export default function AudioLIstItem(props: AudioListItemProps) {
     >
       {audio.title}
       {audio.id - 1 === currentAudioIndex && isPlaying ? (
-        <PauseCircleIcon color="primary" aria-label="Pause current audio" />
+        <PauseCircleIcon
+          fontSize="large"
+          color="primary"
+          aria-label="Pause current audio"
+        />
       ) : (
         <PlayCircleIcon color="primary" aria-label="Play current audio" />
       )}

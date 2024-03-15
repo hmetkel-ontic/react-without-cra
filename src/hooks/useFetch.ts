@@ -1,7 +1,7 @@
 import React from "react";
 
 export const useFetch = (url: string, fetchOptions: any) => {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState<any>(null);
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
