@@ -164,7 +164,7 @@ const AudioPlayer = ({
                 onClick={onPrev}
               >
                 <SkipPrevious
-                  color={currentAudioIndex === 0 ? "secondary" : "warning"}
+                  color={currentAudioIndex === 0 ? "primary" : "warning"}
                   sx={playPauseButtons}
                 />
               </IconButton>
@@ -190,7 +190,7 @@ const AudioPlayer = ({
                 <SkipNext
                   color={
                     currentAudioIndex === totalAudiosCount - 1
-                      ? "secondary"
+                      ? "primary"
                       : "warning"
                   }
                   sx={playPauseButtons}
@@ -225,7 +225,7 @@ const AudioPlayer = ({
               aria-label={!volume ? "Unmute" : "Mute"}
             >
               {!volume ? (
-                <VolumeOff color="secondary" />
+                <VolumeOff color="primary" />
               ) : (
                 <VolumeUp color="warning" />
               )}

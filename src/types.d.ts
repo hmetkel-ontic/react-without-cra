@@ -63,4 +63,8 @@ declare interface NavbarProps {
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     newView: string
   ) => void;
+  searchText: string;
+  handleSearchText:
+    | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+    | undefined;
 }

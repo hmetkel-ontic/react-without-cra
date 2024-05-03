@@ -844,11 +844,19 @@ const audios = [
 
 const Home = () => {
   const [view, setView] = React.useState<string>("list-view");
-  const [currentAudioIndex, setCurrentAudioIndex] = React.useState<number>(2); // TODO: to update this to -1 later
+  const [currentAudioIndex, setCurrentAudioIndex] = React.useState<number>(0); // TODO: to update this to -1 later
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
+  const [searchText, setSearchText] = React.useState("");
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const { audioData, accessToken, updateAccessToken } = useAudioStore();
+
+  const filteredAudios = React.useMemo(() => {
+    if (!searchText) return audios;
+    return _filter(audios, (audio) => {
+      return audio.title.toLowerCase().includes(searchText.toLowerCase());
+    });
+  }, [audios, searchText]);
 
   const controlPlayPauseRef = React.useRef<{ toggle: () => void }>({
     toggle: () => {},
@@ -868,41 +876,53 @@ const Home = () => {
     }
   }
 
+  function handleSearchText(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchText(event.target.value);
+  }
+
   return (
     <>
-      <Navbar view={view} onViewChange={onViewChange} />
-
-      <AlbumsCardsView
-        albums={_filter(audioData, (audio) => audio.album_type)}
+      <Navbar
+        view={view}
+        onViewChange={onViewChange}
+        searchText={searchText}
+        handleSearchText={handleSearchText}
       />
 
-      {/* <AudioPlayer
-            audios={audios}
-            currentAudioIndex={currentAudioIndex}
-            onNext={() => setCurrentAudioIndex((index) => index + 1)}
-            onPrev={() => setCurrentAudioIndex((index) => index - 1)}
-            totalAudiosCount={audios.length}
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
-            audioRef={audioRef}
-            controlPlayPauseRef={controlPlayPauseRef}
-          />
+      {/* <AlbumsCardsView
+        albums={_filter(
+          audioData,
+          (audio) => audio.album_type as AlbumsCardsViewProps
+        )}
+      /> */}
 
-          {view === "list-view" ? (
-            <AudioList
-              audios={audios}
-              currentAudioIndex={currentAudioIndex}
-              isPlaying={isPlaying}
-              handleAudioChange={handleAudioChange}
-            />
-          ) : (
-            <PaginatedAudioList
-              audios={audios}
-              currentAudioIndex={currentAudioIndex}
-              isPlaying={isPlaying}
-              handleAudioChange={handleAudioChange}
-            />
-          )} */}
+      <AudioPlayer
+        audios={filteredAudios}
+        currentAudioIndex={currentAudioIndex}
+        onNext={() => setCurrentAudioIndex((index) => index + 1)}
+        onPrev={() => setCurrentAudioIndex((index) => index - 1)}
+        totalAudiosCount={audios.length}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        audioRef={audioRef}
+        controlPlayPauseRef={controlPlayPauseRef}
+      />
+
+      {view === "list-view" ? (
+        <AudioList
+          audios={filteredAudios}
+          currentAudioIndex={currentAudioIndex}
+          isPlaying={isPlaying}
+          handleAudioChange={handleAudioChange}
+        />
+      ) : (
+        <PaginatedAudioList
+          audios={filteredAudios}
+          currentAudioIndex={currentAudioIndex}
+          isPlaying={isPlaying}
+          handleAudioChange={handleAudioChange}
+        />
+      )}
     </>
   );
 };

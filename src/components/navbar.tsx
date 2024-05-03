@@ -64,8 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar(props: NavbarProps) {
-  const { view, onViewChange } = props;
-  const [searchText, setSearchText] = React.useState("");
+  const { view, onViewChange, searchText, handleSearchText } = props;
 
   const { accessToken, updateAudioData, updateError } = useAudioStore();
 
@@ -119,9 +118,7 @@ export default function Navbar(props: NavbarProps) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               value={searchText}
-              onChange={(event) => {
-                setSearchText(event.target.value);
-              }}
+              onChange={handleSearchText}
             />
           </Search>
           <ToggleButtonGroup exclusive value={view} onChange={onViewChange}>
